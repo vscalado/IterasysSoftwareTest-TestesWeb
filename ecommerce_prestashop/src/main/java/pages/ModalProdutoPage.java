@@ -12,9 +12,11 @@ public class ModalProdutoPage {
 	private WebDriver driver;
 	
 	private By mensagemProdutoAdicionado = By.id("myModalLabel");
-	private By descricaoProduto = By.className("h6 product-name");
-	private By precoProduto = By.cssSelector(".modal-body .product-price");
+	private By descricaoProduto = By.className("product-name");
+	private By precoProduto = By.cssSelector("div.modal-body p.product-price");
 	private By listaValoresInformados = By.cssSelector("div.divide-right .col-md-6:nth-child(2) span strong");
+	private By subtotal = By.cssSelector(".cart-content p:nth-child(2) span.value");
+	
 
 	
 	public ModalProdutoPage(WebDriver driver) {
@@ -49,5 +51,9 @@ public class ModalProdutoPage {
 	
 	public String obterPrecoProduto() {
 		return driver.findElement(precoProduto).getText();
+	}
+	
+	public String obterSubtotal() {
+		return driver.findElement(subtotal).getText();
 	}
 }
