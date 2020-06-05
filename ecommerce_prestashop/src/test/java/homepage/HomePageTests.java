@@ -110,6 +110,11 @@ public class HomePageTests extends BaseTests{
 		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado()
 				.endsWith("Product successfully added to your shopping cart"));
 		
+		System.out.println(modalProdutoPage.obterTamanhoProduto());
+		System.out.println(modalProdutoPage.obterCorProduto());
+		System.out.println(modalProdutoPage.obterQuantidadeProduto());
+		//System.out.println(modalProdutoPage.obterDescricaoProduto());
+		//System.out.println(modalProdutoPage.obterPrecoProduto());
 	}
 
 	
