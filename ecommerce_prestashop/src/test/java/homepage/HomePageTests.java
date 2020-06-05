@@ -72,6 +72,11 @@ public class HomePageTests extends BaseTests{
 	
 	@Test
 	public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
+		
+		String tamanhoProduto = "M";
+		String corProduto = "Balck";
+		int quantidadeProduto = 2;
+		
 		//--Pré Comdição - Usuario Logado
 		if (!homePage.estaLogado("Vitor Calado")) {
 			testLoginComSucesso_UsuarioLogado();
@@ -85,7 +90,7 @@ public class HomePageTests extends BaseTests{
 		System.out.println(listaOpcoes.get(0));
 		System.out.println("Tamanho da Lista:" + listaOpcoes.size());
 		
-		produtoPage.selecionarOpçãoDropDown("M");
+		produtoPage.selecionarOpçãoDropDown(tamanhoProduto);
 		
 		listaOpcoes = produtoPage.obterOpcoesSelecionadas();
 		System.out.println(listaOpcoes.get(0));
@@ -95,10 +100,12 @@ public class HomePageTests extends BaseTests{
 		produtoPage.selecionarCorPreta();
 		
 		//Selecionar Quantidade 
-		produtoPage.alterarQuantidade(2);
+		produtoPage.alterarQuantidade(quantidadeProduto);
 		
 		//Clicar em Add to Card
 		ModalProdutoPage modalProdutoPage = produtoPage.clicarBotaoAddToCart();
+		
+		//Validações
 		System.out.println(modalProdutoPage.obterMensagemProdutoAdicionado());
 		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado()
 				.endsWith("Product successfully added to your shopping cart"));
