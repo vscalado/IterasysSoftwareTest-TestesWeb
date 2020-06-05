@@ -52,7 +52,6 @@ public class HomePageTests extends BaseTests{
 		String email = "vitor.santos@outlook.com.br";
 		String senha = "vitor123";
 		
-		
 		LoginPage loginPage = homePage.clicarBotaoSignIn();
 		
 		loginPage.preencherEmail(email);
@@ -62,5 +61,8 @@ public class HomePageTests extends BaseTests{
 		assertThat(homePage.estaLogado("Vitor Calado"), is(true));
 		
 	}
+	
+	@Test
+	public void test
 
 }
