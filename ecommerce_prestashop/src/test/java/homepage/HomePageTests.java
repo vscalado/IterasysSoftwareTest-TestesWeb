@@ -2,6 +2,7 @@ package homepage;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import base.BaseTests;
 import pages.LoginPage;
+import pages.ModalProdutoPage;
 import pages.ProdutoPage;
 
 public class HomePageTests extends BaseTests{
@@ -96,7 +98,14 @@ public class HomePageTests extends BaseTests{
 		produtoPage.alterarQuantidade(2);
 		
 		//Clicar em Add to Card
-		produtoPage.clicarBotaoAddToCart();
+		ModalProdutoPage modalProdutoPage = produtoPage.clicarBotaoAddToCart();
+		System.out.println(modalProdutoPage.obterMensagemProdutoAdicionado());
+		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado()
+				.endsWith("Product successfully added to your shopping cart"));
+		
 	}
 
+	
+	
+	
 }
