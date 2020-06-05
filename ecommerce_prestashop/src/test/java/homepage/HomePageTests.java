@@ -3,6 +3,8 @@ package homepage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import base.BaseTests;
@@ -25,6 +27,7 @@ public class HomePageTests extends BaseTests{
 		assertThat(produtosNoCarrinho, is(0));
 	}
 	
+	ProdutoPage produtoPage;
 	@Test
 	public void testValidarDetalhesDoProduto_DescricaoEValorIguais() {
 		int indice = 0;
@@ -34,7 +37,7 @@ public class HomePageTests extends BaseTests{
 		System.out.println(nomeProduto_HomePage);
 		System.out.println(precoProduto_HomePage);
 		
-		ProdutoPage produtoPage = homePage.clicarProduto(indice);
+		produtoPage = homePage.clicarProduto(indice);
 		
 		String nomeProduto_ProdutoPage = produtoPage.obterNomeProduto();
 		String precoProduto_ProdutoPage = produtoPage.obterPrecoProduto();
@@ -47,12 +50,13 @@ public class HomePageTests extends BaseTests{
 		
 	}
 	
+	LoginPage loginPage;
 	@Test
 	public void testLoginComSucesso_UsuarioLogado() {
 		String email = "vitor.santos@outlook.com.br";
 		String senha = "vitor123";
 		
-		LoginPage loginPage = homePage.clicarBotaoSignIn();
+		loginPage = homePage.clicarBotaoSignIn();
 		
 		loginPage.preencherEmail(email);
 		loginPage.preencherPassword(senha);
@@ -60,9 +64,39 @@ public class HomePageTests extends BaseTests{
 		
 		assertThat(homePage.estaLogado("Vitor Calado"), is(true));
 		
+		carregarPaginaInicial();
+		
 	}
 	
 	@Test
-	public void test
+	public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
+		//--Pré Comdição - Usuario Logado
+		if (!homePage.estaLogado("Vitor Calado")) {
+			testLoginComSucesso_UsuarioLogado();
+		}
+		
+		//-- Selecionando Produto
+		testValidarDetalhesDoProduto_DescricaoEValorIguais();
+		
+		//Selecionar Tamanho 
+		List<String> listaOpcoes = produtoPage.obterOpcoesSelecionadas();
+		System.out.println(listaOpcoes.get(0));
+		System.out.println("Tamanho da Lista:" + listaOpcoes.size());
+		
+		produtoPage.selecionarOpçãoDropDown("M");
+		
+		listaOpcoes = produtoPage.obterOpcoesSelecionadas();
+		System.out.println(listaOpcoes.get(0));
+		System.out.println("Tamanho da Lista:" + listaOpcoes.size());
+		
+		//Selecionar Cor 
+		produtoPage.selecionarCorPreta();
+		
+		//Selecionar Quantidade 
+		produtoPage.alterarQuantidade(2);
+		
+		//Clicar em Add to Card
+		produtoPage.clicarBotaoAddToCart();
+	}
 
 }
