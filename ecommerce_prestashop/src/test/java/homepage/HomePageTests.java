@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import base.BaseTests;
+import pages.CarrinhoPage;
 import pages.LoginPage;
 import pages.ModalProdutoPage;
 import pages.ProdutoPage;
@@ -73,6 +74,7 @@ public class HomePageTests extends BaseTests {
 
 	}
 
+	ModalProdutoPage modalProdutoPage;
 	@Test
 	public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
 
@@ -106,7 +108,7 @@ public class HomePageTests extends BaseTests {
 		produtoPage.alterarQuantidade(quantidadeProduto);
 
 		// Clicar em Add to Card
-		ModalProdutoPage modalProdutoPage = produtoPage.clicarBotaoAddToCart();
+		modalProdutoPage = produtoPage.clicarBotaoAddToCart();
 
 		// Validações
 		System.out.println(modalProdutoPage.obterMensagemProdutoAdicionado());
@@ -135,4 +137,17 @@ public class HomePageTests extends BaseTests {
 
 	}
 
+	@Test
+	public void IrParaCarrinho_InformaçõesPersistidas() {
+		//Precondições
+		//Produto Incluido no Carrinho
+		testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
+		
+		CarrinhoPage carrinhopage = modalProdutoPage.clicarBotaoProceedToCheckout();
+		
+		//Teste
+		
+		//Validar todos os elementos da tela 
+		
+	}
 }
