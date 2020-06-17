@@ -83,7 +83,7 @@ public class HomePageTests extends BaseTests {
 	@Test
 	public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
 
-		String tamanhoProduto = "M";
+		String tamanhoProduto = "L";
 		String corProduto = "Black";
 		int quantidadeProduto = 2;
 
@@ -143,7 +143,7 @@ public class HomePageTests extends BaseTests {
 
 	String esperado_nomeProduto = "Hummingbird printed t-shirt";
 	Double esperado_precoProduto = 19.12;
-	String esperado_tamanhoProduto = "M";
+	String esperado_tamanhoProduto = "L";
 	String esperado_corProduto = "Black";
 	int esperado_input_quantidadeProduto = 2;
 	Double esperado_subtotalProduto = esperado_precoProduto * esperado_input_quantidadeProduto;
@@ -256,6 +256,23 @@ public class HomePageTests extends BaseTests {
 		assertThat(encontrado_shippingValor_Double, is(esperado_shippingTotal));
 		
 		checkoutPage.clicar_botaoContinueShipping();
+		
+		//Selecionar a opção "pay by Check"
+		checkoutPage.selecionar_radioPayByCheck();
+		
+		//Validar valor do cheque (amount)
+		String encontrado_amountPyByCheck_String = checkoutPage.obter_amountPyByCheck();
+		encontrado_amountPyByCheck_String = Funcoes.removeTexto(encontrado_amountPyByCheck_String, " (tax incl.)");
+		Double encontrado_amountPyByCheck_Double = Funcoes.removeCifranDevolveDouble(encontrado_amountPyByCheck_String);
+		
+		assertThat(encontrado_amountPyByCheck_Double, is(esperado_totalTaxInclTotal));
+		
+		
+		//Clicar na opção "I agree"
+		checkoutPage.selecionar_checkboxIAgree();
+		
+		assertTrue(checkoutPage.estaSelecionadoCheckboxIAgree());
+		
 	}
 	
 }
