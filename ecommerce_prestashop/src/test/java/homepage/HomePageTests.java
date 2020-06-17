@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 
 import base.BaseTests;
 import pages.CarrinhoPage;
+import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.ModalProdutoPage;
 import pages.ProdutoPage;
@@ -149,18 +150,22 @@ public class HomePageTests extends BaseTests {
 
 	int esperado_numeroItensTotal = esperado_input_quantidadeProduto;
 	Double esperado_subtotalTotal = esperado_subtotalProduto;
-	Double esperado_shippingTotal = 7.0;
+	Double esperado_shippingTotal = 7.00;
 	Double esperado_totalTaxExclTotal = esperado_subtotalTotal + esperado_shippingTotal;
 	Double esperado_taxesTotal = 0.0;
 	Double esperado_totalTaxInclTotal = esperado_totalTaxExclTotal + esperado_taxesTotal;
-
+	
+	String esperado_nomeCliente = "Vitor Calado";
+	
+	CarrinhoPage carrinhoPage;
+	
 	@Test
 	public void IrParaCarrinho_InformaçõesPersistidas() {
 		// Precondições
 		// Produto Incluido no Carrinho
 		testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
 
-		CarrinhoPage carrinhoPage = modalProdutoPage.clicarBotaoProceedToCheckout();
+		carrinhoPage = modalProdutoPage.clicarBotaoProceedToCheckout();
 
 		// Teste
 
@@ -218,4 +223,39 @@ public class HomePageTests extends BaseTests {
 		assertEquals(esperado_taxesTotal, Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_taxesTotal()));
 
 	}
+	
+	
+	
+	CheckoutPage checkoutPage;
+	@Test
+	public void IrParaCheckout_FreteMeioPagamentoEnderecoListadoOK() {
+		//Pré-condição
+		
+		//Produto disponivel no carrinho de compras
+		IrParaCarrinho_InformaçõesPersistidas();
+		
+		// Teste 
+		
+		// Clicar no Botão 
+		checkoutPage = carrinhoPage.clicarBotaoProceedToCheckout();
+		
+		// Preencher informações
+		
+		//Validar informações da tela 
+		assertThat(Funcoes.removeCifranDevolveDouble(checkoutPage.obter_totalTaxIncTotal()),is(esperado_totalTaxInclTotal));
+		//assertThat(checkoutPage.obter_nomeCliente(), is(nomeCliente));
+		assertTrue(checkoutPage.obter_nomeCliente().startsWith(esperado_nomeCliente));
+		
+		checkoutPage.clicarBotaoContinueAddress();
+		
+		
+		String encontrado_shippingValor_String = checkoutPage.obter_shippingValor();
+		encontrado_shippingValor_String = Funcoes.removeTexto(encontrado_shippingValor_String, " tax excl.");
+		Double encontrado_shippingValor_Double =  Funcoes.removeCifranDevolveDouble(encontrado_shippingValor_String);
+		
+		assertThat(encontrado_shippingValor_Double, is(esperado_shippingTotal));
+		
+		checkoutPage.clicar_botaoContinueShipping();
+	}
+	
 }
