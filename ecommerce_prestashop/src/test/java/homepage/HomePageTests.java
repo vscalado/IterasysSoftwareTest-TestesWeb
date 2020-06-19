@@ -22,7 +22,7 @@ import util.Funcoes;
 public class HomePageTests extends BaseTests {
 
 	@Test
-	public void testcontarProdutos_oitoProdutosDiferentes() {
+	public void testContarProdutos_oitoProdutosDiferentes() {
 
 		carregarPaginaInicial();
 		assertThat(homePage.contarProdutos(), is(8));
@@ -64,10 +64,11 @@ public class HomePageTests extends BaseTests {
 
 	@Test
 	public void testLoginComSucesso_UsuarioLogado() {
-		String email = "vitor.santos@outlook.com.br";
-		String senha = "vitor123";
 
 		loginPage = homePage.clicarBotaoSignIn();
+		
+		String email = "vitor.santos@outlook.com.br";
+		String senha = "vitor123";
 
 		loginPage.preencherEmail(email);
 		loginPage.preencherPassword(senha);
@@ -78,6 +79,8 @@ public class HomePageTests extends BaseTests {
 		carregarPaginaInicial();
 
 	}
+	
+	
 
 	ModalProdutoPage modalProdutoPage;
 
@@ -161,7 +164,7 @@ public class HomePageTests extends BaseTests {
 	CarrinhoPage carrinhoPage;
 	
 	@Test
-	public void IrParaCarrinho_InformaçõesPersistidas() {
+	public void testIrParaCarrinho_InformaçõesPersistidas() {
 		// Precondições
 		// Produto Incluido no Carrinho
 		testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
@@ -229,11 +232,11 @@ public class HomePageTests extends BaseTests {
 	
 	CheckoutPage checkoutPage;
 	@Test
-	public void IrParaCheckout_FreteMeioPagamentoEnderecoListadoOK() {
+	public void testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOK() {
 		//Pré-condição
 		
 		//Produto disponivel no carrinho de compras
-		IrParaCarrinho_InformaçõesPersistidas();
+		testIrParaCarrinho_InformaçõesPersistidas();
 		
 		// Teste 
 		
@@ -278,10 +281,10 @@ public class HomePageTests extends BaseTests {
 	
 	PedidoPege pedidoPage;
 	@Test
-	public void finalizarPedido_pedidoFinalizadoComSucesso() {
+	public void testFinalizarPedido_pedidoFinalizadoComSucesso() {
 		//Pré condições
 		//Checkout completamente concluido
-		IrParaCheckout_FreteMeioPagamentoEnderecoListadoOK();
+		testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOK();
 		
 		//Teste
 		//Clicar no botão para confirmar pedido
@@ -292,6 +295,10 @@ public class HomePageTests extends BaseTests {
 		assertTrue(pedidoPage.obter_textoPedidoConfirmado().endsWith("YOUR ORDER IS CONFIRMED"));
 		//assertThat(pedidoPage.obter_textoPedidoConfirmado().toUpperCase(), is("YOUR ORDER IS CONFIRMED"));
 		
+		assertThat(pedidoPage.obter_email(), is("vitor.santos@outlook.com.br"));
+		assertThat(pedidoPage.obter_totalProdutos(), is(esperado_subtotalProduto));
+		assertThat(pedidoPage.obter_totalTaxIncl(), is(esperado_totalTaxInclTotal));
+		assertThat(pedidoPage.obter_metodoPagamento(), is("check"));
 	}
 	
 }
