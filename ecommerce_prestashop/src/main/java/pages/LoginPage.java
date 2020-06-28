@@ -30,5 +30,5 @@ public class LoginPage {
 		driver.findElement(botaoSignIn).click();
 
 	}
-
+	
 }

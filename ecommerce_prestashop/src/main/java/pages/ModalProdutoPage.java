@@ -18,6 +18,9 @@ public class ModalProdutoPage {
 	private By subtotal = By.cssSelector(".cart-content p:nth-child(2) span.value");
 	private By botaoProceedToCheckout = By.cssSelector("div.cart-content-btn a.btn-primary");
 	
+	//Correção Erro quando roda toos juntos
+	private By botaoClose = By.cssSelector("#blockcart-modal span i.material-icons");
+	
 
 	
 	public ModalProdutoPage(WebDriver driver) {
@@ -61,5 +64,9 @@ public class ModalProdutoPage {
 	public CarrinhoPage clicarBotaoProceedToCheckout() {
 		driver.findElement(botaoProceedToCheckout).click();
 		return new CarrinhoPage(driver);
+	}
+	
+	public void clicarBotaoClose() {
+		driver.findElement(botaoClose).click();
 	}
 }

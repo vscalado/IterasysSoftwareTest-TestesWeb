@@ -19,6 +19,7 @@ public class ProdutoPage {
 	private By quantidadeProduto = By.id("quantity_wanted");
 	private By botaoAddToCart = By.className("add-to-cart");
 	
+	
 	public ProdutoPage(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -64,5 +65,8 @@ public class ProdutoPage {
 		driver.findElement(botaoAddToCart).click();
 		return new ModalProdutoPage(driver);
 	}
+	
+	
+	
 
 }

@@ -1,0 +1,3 @@
+nomeTeste;email;password;nomeUsuario;resultado
+loginValido;vitor.santos@outlook.com.br;vitor123;Vitor Calado;positivo
+loginInvalido;vitor.santos@outlook.com.br;vitor124;Vitor Calado;negativo
