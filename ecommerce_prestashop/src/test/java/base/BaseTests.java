@@ -2,6 +2,7 @@ package base;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,12 +26,14 @@ public class BaseTests {
 	public static void inicializar() {
 		System.setProperty("webdriver.chrome.driver", "G:\\dev\\projects\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@BeforeEach
 	public void carregarPaginaInicial() {
 		driver.get("https://marcelodebittencourt.com/demoprestashop/");
 		homePage = new HomePage(driver);
+		
 	}
 	
 	

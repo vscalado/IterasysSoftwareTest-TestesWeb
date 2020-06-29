@@ -34,7 +34,7 @@ public class ProdutoPage {
 		
 	}
 	
-	public void selecionarOpçãoDropDown(String opcao) {
+	public void selecionarOpcaoDropDown(String opcao) {
 		encontrarDropdownSize().selectByVisibleText(opcao);
 	}
 	

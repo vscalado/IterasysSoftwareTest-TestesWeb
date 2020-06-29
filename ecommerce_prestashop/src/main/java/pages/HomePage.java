@@ -75,5 +75,19 @@ public class HomePage {
 	public String obter_textoBotaoSignIn() {
 		return driver.findElement(botaoSignIn).getText();
 	}
+
+	public void carregarPaginaInicial() {
+		driver.get("https://marcelodebittencourt.com/demoprestashop/");
+		
+	}
+
+	public String obterTituloPagina() {
+		return driver.getTitle();
+	}
+
+	public boolean estaLogadoB() {
+		return !"Sign in".contentEquals(driver.findElement(usuarioLogado).getText());
+		
+	}
 	
 }

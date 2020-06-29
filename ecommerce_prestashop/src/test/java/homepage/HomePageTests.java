@@ -74,7 +74,7 @@ public class HomePageTests extends BaseTests {
 		String logado = homePage.obter_textoBotaoSignIn();
 		// System.out.println(logado);
 		if (logado.equals("Sign in")) {
-			System.out.println("Não estou Logado");
+			System.out.println("Nï¿½o estou Logado");
 
 			loginPage = homePage.clicarBotaoSignIn();
 
@@ -141,7 +141,7 @@ public class HomePageTests extends BaseTests {
 		String corProduto = "Black";
 		int quantidadeProduto = 2;
 
-		// --Pré Comdição - Usuario Logado
+		// --Prï¿½ Comdiï¿½ï¿½o - Usuario Logado
 		if (!homePage.estaLogado("Vitor Calado")) {
 			testLoginComSucesso_UsuarioLogado();
 		}
@@ -154,7 +154,7 @@ public class HomePageTests extends BaseTests {
 		// System.out.println(listaOpcoes.get(0));
 		// System.out.println("Tamanho da Lista:" + listaOpcoes.size());
 
-		produtoPage.selecionarOpçãoDropDown(tamanhoProduto);
+		produtoPage.selecionarOpcaoDropDown(tamanhoProduto);
 
 		listaOpcoes = produtoPage.obterOpcoesSelecionadas();
 		// System.out.println(listaOpcoes.get(0));
@@ -169,12 +169,12 @@ public class HomePageTests extends BaseTests {
 		// Clicar em Add to Card
 		modalProdutoPage = produtoPage.clicarBotaoAddToCart();
 
-		// Validações
+		// Validaï¿½ï¿½es
 		// System.out.println(modalProdutoPage.obterMensagemProdutoAdicionado());
 		assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado()
 				.endsWith("Product successfully added to your shopping cart"));
 
-		// Converte o preço do produto de uma String para um numero Double
+		// Converte o preï¿½o do produto de uma String para um numero Double
 		Double precoProduto = Funcoes.removeCifranDevolveDouble(modalProdutoPage.obterPrecoProduto());
 		// System.out.println(precoProduto);
 
@@ -182,7 +182,7 @@ public class HomePageTests extends BaseTests {
 		Double subtotal = Funcoes.removeCifranDevolveDouble(modalProdutoPage.obterSubtotal());
 		// System.out.println(subtotal);
 
-		// Calcula o valor do Subtotal Multiplicando o preço do produto pela quantidade
+		// Calcula o valor do Subtotal Multiplicando o preï¿½o do produto pela quantidade
 		Double subtotalCalculado = quantidadeProduto * precoProduto;
 
 		assertThat(modalProdutoPage.obterDescricaoProduto().toUpperCase(), is(nomeProduto_ProdutoPage.toUpperCase()));
@@ -215,8 +215,8 @@ public class HomePageTests extends BaseTests {
 	CarrinhoPage carrinhoPage;
 
 	@Test
-	public void testIrParaCarrinho_InformaçõesPersistidas() {
-		// Precondições
+	public void testIrParaCarrinho_InformacoesPersistidas() {
+		// Precondiï¿½ï¿½es
 		// Produto Incluido no Carrinho
 		testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
 
@@ -252,7 +252,7 @@ public class HomePageTests extends BaseTests {
 		 * obter_taxesTotal()));
 		 */
 
-		// Asserções Hamcrest
+		// Asserï¿½ï¿½es Hamcrest
 		assertThat(carrinhoPage.obter_nomeProduto(), is(esperado_nomeProduto));
 		assertThat(Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_precoProduto()), is(esperado_precoProduto));
 		assertThat(carrinhoPage.obter_tamanhoProduto(), is(esperado_tamanhoProduto));
@@ -271,7 +271,7 @@ public class HomePageTests extends BaseTests {
 				is(esperado_totalTaxInclTotal));
 		assertThat(Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_taxesTotal()), is(esperado_taxesTotal));
 
-		// Asserções JUnit
+		// Asserï¿½ï¿½es JUnit
 		assertEquals(esperado_nomeProduto, carrinhoPage.obter_nomeProduto());
 		assertEquals(esperado_precoProduto, Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_precoProduto()));
 		assertEquals(esperado_tamanhoProduto, carrinhoPage.obter_tamanhoProduto());
@@ -288,7 +288,7 @@ public class HomePageTests extends BaseTests {
 				Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_totalTaxInclTotal()));
 		assertEquals(esperado_taxesTotal, Funcoes.removeCifranDevolveDouble(carrinhoPage.obter_taxesTotal()));
 
-		capturarTela("testIrParaCarrinho_InformaçõesPersistidas");
+		capturarTela("testIrParaCarrinho_Informaï¿½ï¿½esPersistidas");
 
 	}
 
@@ -296,19 +296,19 @@ public class HomePageTests extends BaseTests {
 
 	@Test
 	public void testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOK() {
-		// Pré-condição
+		// Prï¿½-condiï¿½ï¿½o
 
 		// Produto disponivel no carrinho de compras
-		testIrParaCarrinho_InformaçõesPersistidas();
+		testIrParaCarrinho_InformacoesPersistidas();
 
 		// Teste
 
-		// Clicar no Botão
+		// Clicar no Botï¿½o
 		checkoutPage = carrinhoPage.clicarBotaoProceedToCheckout();
 
-		// Preencher informações
+		// Preencher informaï¿½ï¿½es
 
-		// Validar informações da tela
+		// Validar informaï¿½ï¿½es da tela
 		assertThat(Funcoes.removeCifranDevolveDouble(checkoutPage.obter_totalTaxIncTotal()),
 				is(esperado_totalTaxInclTotal));
 		// assertThat(checkoutPage.obter_nomeCliente(), is(nomeCliente));
@@ -324,7 +324,7 @@ public class HomePageTests extends BaseTests {
 
 		checkoutPage.clicar_botaoContinueShipping();
 
-		// Selecionar a opção "pay by Check"
+		// Selecionar a opï¿½ï¿½o "pay by Check"
 		checkoutPage.selecionar_radioPayByCheck();
 
 		// Validar valor do cheque (amount)
@@ -334,7 +334,7 @@ public class HomePageTests extends BaseTests {
 
 		assertThat(encontrado_amountPyByCheck_Double, is(esperado_totalTaxInclTotal));
 
-		// Clicar na opção "I agree"
+		// Clicar na opï¿½ï¿½o "I agree"
 		checkoutPage.selecionar_checkboxIAgree();
 
 		assertTrue(checkoutPage.estaSelecionadoCheckboxIAgree());
@@ -346,12 +346,12 @@ public class HomePageTests extends BaseTests {
 
 	@Test
 	public void testFinalizarPedido_pedidoFinalizadoComSucesso() {
-		// Pré condições
+		// Prï¿½ condiï¿½ï¿½es
 		// Checkout completamente concluido
 		testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOK();
 
 		// Teste
-		// Clicar no botão para confirmar pedido
+		// Clicar no botï¿½o para confirmar pedido
 		pedidoPage = checkoutPage.clicarbotaoConfirmaPedido();
 
 		// Validar valores da tela
